@@ -4,4 +4,7 @@ set(TARGET_PREFIX "${TARGET_PREFIX}${CURRENT_DIR_NAME}_")
 add_subdirectory(lesson_2)
 add_subdirectory(lesson_3)
 add_subdirectory(lesson_4)
-
+add_subdirectory(lesson_6)
+add_subdirectory(lesson_7)
+add_subdirectory(lesson_8)
+add_subdirectory(lesson_9)
