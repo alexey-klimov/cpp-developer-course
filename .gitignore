@@ -1,0 +1,5 @@
+# Build dir
+**/build
+
+# CMake temp files
+*.user*
