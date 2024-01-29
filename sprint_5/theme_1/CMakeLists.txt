@@ -3,3 +3,4 @@ set(TARGET_PREFIX "${TARGET_PREFIX}${CURRENT_DIR_NAME}_")
 
 add_subdirectory(lesson_3)
 add_subdirectory(lesson_4)
+add_subdirectory(lesson_5)

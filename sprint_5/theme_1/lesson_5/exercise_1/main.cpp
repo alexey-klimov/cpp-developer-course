@@ -1,14 +1,13 @@
 /* Задание
  *
- * Примените класс в действии и упростите профилировку. Но сначала слегка доработайте LogDuration,
- * чтобы он ничем не уступал «ручному» способу. Расширьте класс LogDuration, добавив в него поле и
- * параметр конструктора типа std::string, чтобы он мог выводить название операции так, как это было в
- * «ручном» примере. Переделайте логирование в коде из предыдущего урока, используя класс LogDuration.
- * Также измерьте суммарное время работы всей функции Operate. Назовите его “Total”. Вынесите класс
- * LogDuration в отдельный файл log_duration.h.
+ * Замените в примере с профилировкой явное объявление переменных на использование макроса
+ * LOG_DURATION. Ограничения Не меняйте поведение программы. Что отправлять на проверку Загрузите в
+ * тренажёр решение предыдущей задачи с добавленным макросом LOG_DURATION. Прямое использование
+ * LogDuration нужно заменить на использование этого макроса. Как будет тестироваться ваш код
+ * Программа будет проверена теми же тестами, что и предыдущая. Дополнительно будет проверено, что
+ * вы не используете LogDuration напрямую, а только через макрос.
  */
 
-#include <chrono>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -49,7 +48,7 @@ void AppendRandom(vector<int>& v, int n) {
 }
 
 void Operate() {
-    LogDuration duration_guard("Total"s);
+    LOG_DURATION("Total"s);
     vector<int> random_bits;
 
     // операция << для целых чисел это сдвиг всех бит в двоичной
@@ -58,20 +57,20 @@ void Operate() {
 
     // заполним вектор случайными числами 0 и 1
     {
-        LogDuration duration_guard("Append random"s);
+        LOG_DURATION("Append random"s);
         AppendRandom(random_bits, N);
     }
 
     // перевернём вектор задом наперёд
     vector<int> reversed_bits;
     {
-        LogDuration duration_guard("Reverse"s);
+        LOG_DURATION("Reverse"s);
         reversed_bits = ReverseVector(random_bits);
     }
 
     // посчитаем процент единиц на начальных отрезках вектора
     {
-        LogDuration duration_guard("Counting"s);
+        LOG_DURATION("Counting"s);
         for (int i = 1, step = 1; i <= N; i += step, step *= 2) {
             double rate = CountPops(reversed_bits, 0, i) * 100. / i;
             cout << "After "s << i << " bits we found "s << rate << "% pops"s << endl;
