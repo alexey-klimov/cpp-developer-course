@@ -112,9 +112,9 @@ public:
     vector<Document> FindTopDocuments(const string& raw_query,
                                       DocumentStatus required_status) const {
         return FindTopDocuments(
-            raw_query, [required_status](int document_id, DocumentStatus status, int rating) {
-                return status == required_status;
-            });
+            raw_query, [required_status](
+                           [[maybe_unused]] int document_id, [[maybe_unused]] DocumentStatus status,
+                           [[maybe_unused]] int rating) { return status == required_status; });
     }
 
     vector<Document> FindTopDocuments(const string& raw_query) const {
@@ -280,7 +280,7 @@ private:
         return query;
     }
 
-            // Existence required
+    // Existence required
     double ComputeWordInverseDocumentFreq(const string& word) const {
         return log(GetDocumentCount() * 1.0 / word_to_document_freqs_.at(word).size());
     }

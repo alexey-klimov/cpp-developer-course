@@ -159,9 +159,9 @@ public:
     optional<vector<Document>> FindTopDocuments(const string& raw_query,
                                                 DocumentStatus status) const {
         return FindTopDocuments(
-            raw_query, [status](int document_id, DocumentStatus document_status, int rating) {
-                return document_status == status;
-            });
+            raw_query, [status]([[maybe_unused]] int document_id,
+                                [[maybe_unused]] DocumentStatus document_status,
+                                [[maybe_unused]] int rating) { return document_status == status; });
     }
 
     optional<vector<Document>> FindTopDocuments(const string& raw_query) const {
@@ -172,7 +172,8 @@ public:
         return documents_.size();
     }
 
-    optional<tuple<vector<string>, DocumentStatus>> MatchDocument(const string& raw_query, int document_id) const {
+    optional<tuple<vector<string>, DocumentStatus>> MatchDocument(const string& raw_query,
+                                                                  int document_id) const {
         if (raw_query.empty()) {
             return nullopt;
         }
@@ -357,14 +358,18 @@ int main() {
     SearchServer search_server("и в на"s);
     // Явно игнорируем результат метода AddDocument, чтобы избежать предупреждения
     // о неиспользуемом результате его вызова
-    (void) search_server.AddDocument(1, "пушистый кот пушистый хвост"s, DocumentStatus::ACTUAL, {7, 2, 7});
-    if (!search_server.AddDocument(1, "пушистый пёс и модный ошейник"s, DocumentStatus::ACTUAL, {1, 2})) {
+    (void)search_server.AddDocument(1, "пушистый кот пушистый хвост"s, DocumentStatus::ACTUAL,
+                                    {7, 2, 7});
+    if (!search_server.AddDocument(1, "пушистый пёс и модный ошейник"s, DocumentStatus::ACTUAL,
+                                   {1, 2})) {
         cout << "Документ не был добавлен, так как его id совпадает с уже имеющимся"s << endl;
     }
-    if (!search_server.AddDocument(-1, "пушистый пёс и модный ошейник"s, DocumentStatus::ACTUAL, {1, 2})) {
+    if (!search_server.AddDocument(-1, "пушистый пёс и модный ошейник"s, DocumentStatus::ACTUAL,
+                                   {1, 2})) {
         cout << "Документ не был добавлен, так как его id отрицательный"s << endl;
     }
-    if (!search_server.AddDocument(3, "большой пёс скво\x12рец"s, DocumentStatus::ACTUAL, {1, 3, 2})) {
+    if (!search_server.AddDocument(3, "большой пёс скво\x12рец"s, DocumentStatus::ACTUAL,
+                                   {1, 3, 2})) {
         cout << "Документ не был добавлен, так как содержит спецсимволы"s << endl;
     }
     if (const auto documents = search_server.FindTopDocuments("--пушистый"s)) {

@@ -170,9 +170,9 @@ public:
                                         vector<Document>& matched_documents) const {
         return FindTopDocuments(
             raw_query,
-            [status](int document_id, DocumentStatus document_status, int rating) {
-                return document_status == status;
-            },
+            [status]([[maybe_unused]] int document_id,
+                     [[maybe_unused]] DocumentStatus document_status,
+                     [[maybe_unused]] int rating) { return document_status == status; },
             matched_documents);
     }
 

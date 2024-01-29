@@ -20,8 +20,10 @@ void SearchServer::AddDocument(int document_id, const std::string& document, Doc
 
 std::vector<Document> SearchServer::FindTopDocuments(const std::string& raw_query,
                                                      DocumentStatus status) const {
-    return FindTopDocuments(raw_query, [status](int document_id, DocumentStatus document_status,
-                                                int rating) { return document_status == status; });
+    return FindTopDocuments(
+        raw_query,
+        [status]([[maybe_unused]] int document_id, [[maybe_unused]] DocumentStatus document_status,
+                 [[maybe_unused]] int rating) { return document_status == status; });
 }
 
 std::vector<Document> SearchServer::FindTopDocuments(const std::string& raw_query) const {
@@ -125,5 +127,3 @@ SearchServer::Query SearchServer::ParseQuery(const std::string& text) const {
 double SearchServer::ComputeWordInverseDocumentFreq(const std::string& word) const {
     return std::log(GetDocumentCount() * 1.0 / word_to_document_freqs_.at(word).size());
 }
-
-

@@ -144,9 +144,9 @@ public:
 
     vector<Document> FindTopDocuments(const string& raw_query, DocumentStatus status) const {
         return FindTopDocuments(
-            raw_query, [status](int document_id, DocumentStatus document_status, int rating) {
-                return document_status == status;
-            });
+            raw_query, [status]([[maybe_unused]] int document_id,
+                                [[maybe_unused]] DocumentStatus document_status,
+                                [[maybe_unused]] int rating) { return document_status == status; });
     }
 
     vector<Document> FindTopDocuments(const string& raw_query) const {
@@ -452,7 +452,6 @@ private:
     const SearchServer& search_server_;
     struct QueryResult {
         bool is_no_result = false;
-
     };
     deque<QueryResult> requests_;
     int no_result_count = 0;
