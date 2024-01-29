@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.2)
 get_filename_component(PROJECT_DIR ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 project(${PROJECT_DIR})
 
-message(STATUS "Project: ${PROJECT_NAME}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
