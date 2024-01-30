@@ -12,7 +12,7 @@
 #include "carpenter.h"
 
 int main() {
-    // Carpenter jack;
+    Carpenter jack;
     Wall wall(3.5, 2.45);
     assert(jack.CalcShelves(wall) == 4);
 }

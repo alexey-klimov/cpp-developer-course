@@ -4,3 +4,4 @@ set(TARGET_PREFIX "${TARGET_PREFIX}_")
 
 add_subdirectory(theme_1)
 add_subdirectory(theme_2)
+add_subdirectory(theme_3)
