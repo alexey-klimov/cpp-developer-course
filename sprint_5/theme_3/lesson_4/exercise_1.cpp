@@ -7,9 +7,9 @@ using namespace std;
 
 // реализуйте эту функцию:
 size_t GetFileSize(string file) {
-    ifstream file_stream(file, ios::in);
     size_t file_size = 0;
-    return (file_size = ifstream(file, ios::in).seekg(0, ios::end).tellg()) ? file_size : string::npos;
+    return (file_size = ifstream(file, ios::in).seekg(0, ios::end).tellg()) ? file_size
+                                                                            : string::npos;
 }
 
 int main() {
